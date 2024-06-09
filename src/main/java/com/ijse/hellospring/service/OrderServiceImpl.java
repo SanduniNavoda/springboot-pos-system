@@ -50,6 +50,7 @@ public class OrderServiceImpl implements OrderService{
 
         order.getOrderedProducts().add(product);
         order.setTotalPrice(order.getTotalPrice() + product.getPrice() * quantity);
+        product.setQty(product.getQty() - quantity);
 
         return orderRepository.save(order);
     }
@@ -66,6 +67,7 @@ public class OrderServiceImpl implements OrderService{
 
         order.getOrderedProducts().remove(product);
         order.setTotalPrice(order.getTotalPrice() - product.getPrice());
+        // product.setQty(product.getQty() + quantity);
 
         return orderRepository.save(order);
     }

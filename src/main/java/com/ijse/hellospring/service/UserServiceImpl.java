@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
         if (exsistUser != null) {
             exsistUser.setUsername(user.getUsername());
-            exsistUser.setPassword(user.getPassword());
+            exsistUser.setPassword(passwordEncoder.encode(user.getPassword()));
             exsistUser.setEmail(user.getEmail());
             return userRepository.save(exsistUser);
         } else {

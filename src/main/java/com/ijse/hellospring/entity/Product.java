@@ -37,4 +37,6 @@ public class Product {
     @ManyToMany(mappedBy = "orderedProducts")
     private List<Order> orders;
 
+    
+
 }
