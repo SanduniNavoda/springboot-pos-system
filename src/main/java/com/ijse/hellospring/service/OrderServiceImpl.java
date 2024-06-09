@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService{
         if (order != null && product != null) {
             // Remove the product from the order
             order.getOrderedProducts().removeIf(op -> op.getId().equals(productId));
-            order.setTotalPrice(order.getTotalPrice() + product.getPrice() * quantity);
+            order.setTotalPrice(order.getTotalPrice() - product.getPrice() * quantity);
             
             // Update the product store quantity
             product.setQty(product.getQty() + quantity);
@@ -89,5 +89,20 @@ public class OrderServiceImpl implements OrderService{
         }
         return null;
     }
+
+    @Override
+    public void deleteOrder(Long id){
+        List<Product> orderdProducts = orderRepository.findById(id).orElse(null).getOrderedProducts();
+        if(!orderdProducts.isEmpty()){
+            for(Product productInOrder : orderdProducts){
+                Product product = productRepository.findById(productInOrder.getId()).orElse(null);
+                product.setQty(product.getQty() + 1);
+        }
+        }
+        
+        orderRepository.deleteById(id);
+    }
+
+
     
 }
