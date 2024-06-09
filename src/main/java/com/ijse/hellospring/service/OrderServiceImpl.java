@@ -55,21 +55,39 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.save(order);
     }
 
-    @Override
-    public Order removeProductfromOrder(Long orderId, Long productId){
+    // @Override
+    // public Order removeProductfromOrder(Long orderId, Long productId){
+    //     Order order = orderRepository.findById(orderId).orElse(null);
+
+    //     if(order == null) return null;
+
+    //     Product product = productRepository.findById(productId).orElse(null);
+
+    //     if(product == null) return null;
+
+    //     order.getOrderedProducts().remove(product);
+    //     order.setTotalPrice(order.getTotalPrice() - product.getPrice());
+    //     // product.setQty(product.getQty() + quantity);
+
+    //     return orderRepository.save(order);
+    // }
+
+    public Order removeProductfromOrder(Long orderId, Long productId, int quantity) {
         Order order = orderRepository.findById(orderId).orElse(null);
-
-        if(order == null) return null;
-
         Product product = productRepository.findById(productId).orElse(null);
-
-        if(product == null) return null;
-
-        order.getOrderedProducts().remove(product);
-        order.setTotalPrice(order.getTotalPrice() - product.getPrice());
-        // product.setQty(product.getQty() + quantity);
-
-        return orderRepository.save(order);
+    
+        if (order != null && product != null) {
+            // Remove the product from the order
+            order.getOrderedProducts().removeIf(op -> op.getId().equals(productId));
+            order.setTotalPrice(order.getTotalPrice() + product.getPrice() * quantity);
+            
+            // Update the product store quantity
+            product.setQty(product.getQty() + quantity);
+            productRepository.save(product);
+    
+            return orderRepository.save(order);
+        }
+        return null;
     }
     
 }

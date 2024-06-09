@@ -51,7 +51,7 @@ public class CategoryController {
         
         Category category = new Category();
         category.setName(categoryDto.getName());
-;
+
 
         Category updateCategory = categoryService.updateCategory(id, category);
 
