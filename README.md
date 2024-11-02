@@ -75,8 +75,8 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 - DELETE /api/products/{id}: Delete user
 
   <p align="center">
-     <img src="https://github.com/user-attachments/assets/b2157410-e871-4b0f-a865-46642745731c" alt="Screenshot of Create User Interface" width="45%"/>
-     <img src="https://github.com/user-attachments/assets/e12ae3ba-629a-43ea-af0e-229df188a181" alt="Screenshot of Update User Interface" width="45%"/>
+     <img src="https://github.com/user-attachments/assets/7d7db547-2be6-4f69-909b-cfafb50f4a64" alt="Screenshot of Create User Interface" width="45%"/>
+     <img src="https://github.com/user-attachments/assets/27d2bd02-863b-494f-9845-4d87638fc655" alt="Screenshot of Update User Interface" width="45%"/>
   </p>
   <br>
 
