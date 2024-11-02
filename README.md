@@ -4,6 +4,7 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 
 ## Features
 
+- **User Management**: Create, edit, and delete items.
 - **Item Management**: Create, edit, and delete items.
 - **Item Category Management**: Manage categories of items.
 - **Point of Sale**: Handle sales transactions, including adding items to a cart, and updating stock.
@@ -61,6 +62,23 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 ### Authentication
 - POST /api/users: Register a new user
 - POST /api/auth/login: Authenticate and retrieve a JWT token
+  <p align="center">
+     <img src="https://github.com/user-attachments/assets/b77af294-1a3e-4cdf-85d8-66691d97ebd7" alt="Screenshot of user login interface and database" width="60%"/>
+     <img src="https://github.com/user-attachments/assets/cb639e24-4df2-47c2-9cec-34e485f1cf43" alt="Screenshot of Home Page" width="30%"/>
+  </p>
+  <br>
+
+### User Management
+- GET /api/products: Retrieve all users
+- POST /api/products: Add a new user
+- PUT /api/products/{id}: Update user
+- DELETE /api/products/{id}: Delete user
+
+  <p align="center">
+     <img src="https://github.com/user-attachments/assets/b2157410-e871-4b0f-a865-46642745731c" alt="Screenshot of Create User Interface" width="45%"/>
+     <img src="https://github.com/user-attachments/assets/e12ae3ba-629a-43ea-af0e-229df188a181" alt="Screenshot of Update User Interface" width="45%"/>
+  </p>
+  <br>
 
 ### Product Management
 - GET /api/products: Retrieve all items
@@ -68,19 +86,56 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 - PUT /api/products/{id}: Update an item
 - DELETE /api/products/{id}: Delete an item
 
+  <p align="center">
+     <img src="https://github.com/user-attachments/assets/2f4d8216-0cd1-4fe7-b495-ecd62e6630e5" alt="Screenshot of Add New Product Interface" width="45%"/> 
+     <img src="https://github.com/user-attachments/assets/0f6225bc-d124-427e-b517-eb16546059d9" alt="Screenshot of Update Product Interface" width="45%"/> 
+  </p>
+  <br>
+
 ### Item Category Management
 - GET /api/categories: Retrieve all item categories
 - POST /api/categories: Add a new item category
 - PUT /api/categories/{id}: Update an item category
 - DELETE /api/categories/{id}: Delete an item category
 
+  <p align="center">
+     <img src="https://github.com/user-attachments/assets/4cf2c4bf-4183-49da-b4c4-a99d0feb5ae3" alt="Screenshot of Category Management Interface" width="45%"/> 
+  </p>
+  <br>
+
 ### Point of Sale
 - POST /api/orders: Create an order
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/6a9c0953-43a1-453b-9060-ae6934cc2f78" alt="Screenshot of Orders Management Interface" width="45%"/>
+  </p>
+  <br>
+  
 - POST /api/orders/{id}/addProduct: Add a product to cart, and remove from the stock
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/6f090b56-2abc-4ddd-9408-d8c15aae5091" alt="Screenshot of Add Items to Cart Intrface and Database" width="60%"/>
+  </p>
+  <br>
+
+   
 - POST /api/{orderId}/removeProduct: Remove a product from order and add back into the stock
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/4dd1c805-630a-47ec-ab84-fb1a8d9e9d18" alt="Screenshot of Remove a product from order and add back into the stock" width="60%"/>
+  </p>
+  <br>
+  
 - GET /api/orders/{id}: Get a specific order by it's id
 - GET /api/orders: Get all Orders
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/2ba2f234-518d-4690-92a2-8ae153e0ffd6" alt="Screenshot of Create Order Interface and Database" width="60%"/>
+  </p>
+  <br>
+  
 - DELETE /api/orders/{id}: Delete an order
+
+  <p align="center">
+   <img src="https://github.com/user-attachments/assets/fec63fbf-b623-40ba-a9a5-b981783324d2" alt="Screenshot of Delete an order and restore items in stock" width="60%"/>
+  </p>
+  <br>
 
 ## Security
 - The application uses Spring Security with JWT for authentication. After logging in, you will receive a JWT token that must be included in the Authorization header of your API requests as a Bearer token.
