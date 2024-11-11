@@ -1,6 +1,6 @@
 # Point of Sale System (POS)
 
-This is the backend implementation of a Point of Sale (POS) system developed using Spring Boot and MySQL. The system includes functionalities for managing items, item categories, stock, and point of sale transactions. Additionally, it incorporates authentication using Spring Security with JWT.
+This is the backend implementation of a smart Point of Sale (POS) system developed using Spring Boot and MySQL. The system includes functionalities for managing items, item categories, stock, and point of sale transactions. Additionally, it incorporates authentication using Spring Security with JWT.
 
 ## Features
 
@@ -16,8 +16,10 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 - **Spring Boot**: Framework for building the backend
 - **Spring Security**: For implementing authentication and authorization
 - **JWT (JSON Web Token)**: For securing API endpoints
-- **MySQL**: Database for storing application data
-- **Hibernate JPA**: ORM for database operations
+- **Hibernate JPA**: ORM for database operations.
+- **Docker**: Containerization Platform
+- **Cloud SQL with MySQL**: MySQL instance is maintain as a database
+- **Google Cloud Run**: Managed service for deploying containerized applications
 
 ## Getting Started
 
@@ -26,6 +28,8 @@ This is the backend implementation of a Point of Sale (POS) system developed usi
 - Java 17 or higher
 - Maven 3.6.3 or higher
 - MySQL Server
+- Docker (for containerization)
+- Google Cloud SDK (for deploying to Cloud Run)
 - An IDE like IntelliJ IDEA or Eclipse
 
 ### Installation
