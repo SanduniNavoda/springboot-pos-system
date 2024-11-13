@@ -19,7 +19,7 @@ This is the backend implementation of a smart Point of Sale (POS) system develop
 - **Hibernate JPA**: ORM for database operations.
 - **Docker**: Containerization Platform
 - **Cloud SQL with MySQL**: MySQL instance is maintain as a database
-- **Google Cloud Run**: Managed service for deploying containerized applications
+- **Google Cloud Platform (GCP)**: Cloud hosting and deployment platform
 
 ## Getting Started
 
@@ -27,9 +27,9 @@ This is the backend implementation of a smart Point of Sale (POS) system develop
 
 - Java 17 or higher
 - Maven 3.6.3 or higher
-- MySQL Server
+- MySQL Server (Cloud SQL)
 - Docker (for containerization)
-- Google Cloud SDK (for deploying to Cloud Run)
+- Google Cloud SDK (for deploying to GCP)
 - An IDE like IntelliJ IDEA or Eclipse
 
 ### Installation
@@ -40,7 +40,7 @@ This is the backend implementation of a smart Point of Sale (POS) system develop
    cd pos-system
 
 2. **Configure the database**:
-   - Create a new MySQL database:
+   - Create a new MySQL database (if running locally):
      ```bash
      CREATE DATABASE pos_system_db;
    - Update the application.properties file in the src/main/resources directory with your MySQL credentials:
@@ -53,14 +53,83 @@ This is the backend implementation of a smart Point of Sale (POS) system develop
 
 3. **Build the project**:
     ```bash
-    mvn clean install
+    mvn clean package
 4. **Run the application**:
    ```bash
    mvn spring-boot:run
 5. **Access the application**:
    - The application will be running at http://localhost:8080.
 
+6. **Containerize the Application**:
+   The application has been Dockerized for easy deployment. To build and run the Docker container:
+   - **Build the Docker image**
+   ```bash
+   docker build -t pos-system .
+   ```
+   - **Run the Docker container**: 
+   ```bash
+   docker run -d -p 8080:8080 --name pos-system pos-system
+   ```
+<br>
 
+## Deployment on Google Cloud Platform (GCP)
+The application is deployed on Google Cloud Run, connected to a Cloud SQL instance for MySQL database management.
+
+### Steps to Deploy on GCP
+1. **Create a Google Cloud Project** and enable the Cloud Run and Cloud SQL APIs.
+   2. **Create a Cloud SQL Instance** for your MySQL database:
+
+       - Set up the MySQL instance in Cloud SQL & Create a Database 
+       - Let the user access the database
+       
+         Go to MySQL Shell & log into your MySQL instance
+   
+            ```
+            gcloud sql connect <YOUR_SQL_INSTANCE_NAME> --user=<YOUR_USERNAME> --quiet
+            ```
+         Give permission
+            ```
+         ALTER USER 'your_user'@'%' IDENTIFIED BY 'your_password';   
+         GRANT ALL PRIVILEGES ON `your_db_instance`.* TO 'your_user'@'%';
+         FLUSH PRIVILEGES;
+         ```
+    - Configure the necessary connection details (database name, username, password) in ```application.properties```.
+      ```bash
+      spring.datasource.url=jdbc:mysql:///<YOUR_DATABASE>?cloudSqlInstance=<INSTANCE_CONNECTION_NAME>&socketFactory=com.google.cloud.sql.mysql.SocketFactory
+      spring.datasource.username=${DB_USERNAME}
+      spring.datasource.password=${DB_PASSWORD}
+      spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+  
+      # Hibernate configuration
+      spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+      spring.jpa.hibernate.ddl-auto=update
+      spring.jpa.show-sql=true
+  
+  
+      app.secret=${APP_SECRET}
+  
+3. **Deploy the Docker Image to Cloud Run**:
+    - Build and push the Docker image to Google Container Registry (GCR):
+      ```
+      docker tag pos-system gcr.io/[YOUR_PROJECT_ID]/pos-system
+      docker push gcr.io/[YOUR_PROJECT_ID]/pos-system
+    
+    - Deploy the image to Cloud Run with the Cloud SQL instance connection and environment variables:
+      ```
+      gcloud run deploy pos-system \
+       --image=gcr.io/[YOUR_PROJECT_ID]/pos-system \
+       --add-cloudsql-instances=[YOUR_CLOUD_SQL_INSTANCE_CONNECTION_NAME] \
+       --region=asia-south1 \
+       --platform=managed \
+       --allow-unauthenticated \
+       --set-env-vars DB_USERNAME=[YOUR_DB_USERNAME],DB_PASSWORD=[YOUR_DB_PASSWORD],APP_SECRET=[YOUR_APP_SECRET]
+      ```
+      <p>
+      <img src="![Screenshot from 2024-11-11 16-18-48.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202024-11-11%2016-18-48.png)" alt="deployment of application" width="60%" />
+      <img src="![Screenshot from 2024-11-11 16-26-54.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202024-11-11%2016-26-54.png)" alt="Send a request to app" width="60%">
+      </p>
+4. **Access the Deployed Application**:
+   The application is accessible at https://springboot-pos-system-926681875908.asia-south1.run.app.
 ## API Endpoints
 
 ### Authentication
