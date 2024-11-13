@@ -77,17 +77,17 @@ The application is deployed on Google Cloud Run, connected to a Cloud SQL instan
 
 ### Steps to Deploy on GCP
 1. **Create a Google Cloud Project** and enable the Cloud Run and Cloud SQL APIs.
-   2. **Create a Cloud SQL Instance** for your MySQL database:
 
-       - Set up the MySQL instance in Cloud SQL & Create a Database 
-       - Let the user access the database
-       
-         Go to MySQL Shell & log into your MySQL instance
+2. **Create a Cloud SQL Instance** for your MySQL database:
    
-            ```
+   - Set up the MySQL instance in Cloud SQL & Create a Database 
+   - Let the user access the database
+       - Go to MySQL Shell & log into your MySQL instance
+     
+         ```
             gcloud sql connect <YOUR_SQL_INSTANCE_NAME> --user=<YOUR_USERNAME> --quiet
-            ```
-         Give permission
+   
+       - Give permission
             ```
          ALTER USER 'your_user'@'%' IDENTIFIED BY 'your_password';   
          GRANT ALL PRIVILEGES ON `your_db_instance`.* TO 'your_user'@'%';
@@ -107,6 +107,8 @@ The application is deployed on Google Cloud Run, connected to a Cloud SQL instan
   
   
       app.secret=${APP_SECRET}
+
+<br>
   
 3. **Deploy the Docker Image to Cloud Run**:
     - Build and push the Docker image to Google Container Registry (GCR):
@@ -124,12 +126,20 @@ The application is deployed on Google Cloud Run, connected to a Cloud SQL instan
        --allow-unauthenticated \
        --set-env-vars DB_USERNAME=[YOUR_DB_USERNAME],DB_PASSWORD=[YOUR_DB_PASSWORD],APP_SECRET=[YOUR_APP_SECRET]
       ```
-      <p>
-      <img src="![Screenshot from 2024-11-11 16-18-48.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202024-11-11%2016-18-48.png)" alt="deployment of application" width="60%" />
-      <img src="![Screenshot from 2024-11-11 16-26-54.png](..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%20from%202024-11-11%2016-26-54.png)" alt="Send a request to app" width="60%">
+      <p align="center">
+      <img src="https://github.com/user-attachments/assets/7bde9bce-ae58-4ad2-96c2-79ed200fae39" alt="deployment of application" width="80%" />
       </p>
+      <br />
+      <p align="center">
+      <img src="https://github.com/user-attachments/assets/e911ad55-73ca-4941-8eb1-895b48eaec7c" alt="Send a request to app" width="80%">
+      </p>
+<br>
+
 4. **Access the Deployed Application**:
-   The application is accessible at https://springboot-pos-system-926681875908.asia-south1.run.app.
+   - The application is accessible at https://springboot-pos-system-926681875908.asia-south1.run.app.
+<br>
+<br>
+
 ## API Endpoints
 
 ### Authentication
